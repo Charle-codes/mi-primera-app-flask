@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-    <title>Saludo</title>
+    <meta charset="UTF-8">
+    <title>Registro Flask</title>
+    <!-- Esta línea conecta el CSS usando una función especial de Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
 </head>
-
 <body>
-
-    <h1>Formulario de saludo</h1>
-
-    <form method="POST">
-
-        <input type="text" name="nombre" placeholder="Escribe tu nombre">
-
-        <button type="submit">
-            Enviar
-        </button>
-
-    </form>
-
+    <div class="contenedor">
+        <h1>¡Bienvenido!</h1>
+        <form action="/saludo" method="POST">
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <input type="email" name="correo" placeholder="Tu correo electrónico" required>
+            <button type="submit">Enviar datos</button>
+        </form>
+    </div>
 </body>
 </html>
