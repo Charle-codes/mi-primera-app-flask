@@ -27,11 +27,8 @@ except Exception as e:
     print(f"No se pudo crear la tabla automáticamente: {e}")
 # -----------------------------------------------------------
 
-@app.route('/')
-def inicio():
-    return "Servidor activo. Ve a /saludo"
-
-@app.route('/saludo', methods=['GET', 'POST'])
+# Esta es ahora tu única ruta principal
+@app.route('/', methods=['GET', 'POST'])
 def saludo():
     if request.method == 'POST':
         nombre = request.form['nombre']
@@ -44,7 +41,10 @@ def saludo():
             conn.commit()
             cur.close()
             conn.close()
-            return f"¡Gracias {nombre}! Tus datos han sido guardados en PostgreSQL."
+            
+            # PASO CLAVE: Aquí llamamos a la nueva pantalla y le pasamos las variables
+            return render_template('exito.html', nombre=nombre, correo=correo)
+            
         except Exception as e:
             return f"Hubo un error al guardar: {e}"
 
