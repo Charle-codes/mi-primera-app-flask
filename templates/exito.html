@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro Exitoso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="contenedor card-exito">
+        <div class="icono-check">✓</div>
+        <h1>¡Registro Exitoso!</h1>
+        <p>Gracias <strong>{{ nombre }}</strong>, hemos guardado tu correo <em>{{ correo }}</em> en nuestra base de datos.</p>
+        <a href="/" class="btn-volver">Volver al inicio</a>
+    </div>
+</body>
+</html>
