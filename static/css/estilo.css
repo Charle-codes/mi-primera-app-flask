@@ -38,3 +38,41 @@ button {
 button:hover {
     background-color: #27ae60;
 }
+
+/* Estilos para la tarjeta de éxito */
+.card-exito h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.card-exito p {
+    color: #7f8c8d;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.icono-check {
+    background-color: #2ecc71;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 30px;
+    line-height: 60px;
+    margin: 0 auto 20px auto;
+}
+
+.btn-volver {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #34495e;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn-volver:hover {
+    background-color: #2c3e50;
+}
