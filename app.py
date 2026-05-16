@@ -28,7 +28,7 @@ try:
     conn.close()
     print("¡Estructura de la tabla 'usuarios' verificada!")
 except Exception as e:
-    print(f"No se pudo verificar la estructura automáticamente: {e}"
+    print(f"No se pudo verificar la estructura automáticamente: {e}")
 # -----------------------------------------------------------
 
 
