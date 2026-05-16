@@ -9,16 +9,12 @@ app = Flask(__name__)
 def conectar_db():
     url = os.environ.get('DB_URL')
     return psycopg2.connect(url)
-
-# --- TRUCO AUTOMÁTICO: REINICIO DE TABLA PARA CORREO ÚNICO ---
+# --- TRUCO AUTOMÁTICO: Este bloque mantendrá tu tabla segura ---
 try:
     conn = conectar_db()
     cur = conn.cursor()
     
-    # ¡LÍNEA CLAVE!: Borramos la tabla vieja con sus duplicados para destrabar el UNIQUE
-    cur.execute("DROP TABLE IF EXISTS usuarios CASCADE;")
-    
-    # Creamos la tabla limpia y nueva asegurando el UNIQUE desde el nacimiento
+    # Ya NO borramos la tabla. Solo verificamos que exista con UNIQUE
     cur.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id SERIAL PRIMARY KEY,
@@ -30,10 +26,9 @@ try:
     conn.commit()
     cur.close()
     conn.close()
-    print("¡Tabla reiniciada y restricción UNIQUE aplicada con éxito!")
+    print("¡Estructura de la tabla 'usuarios' verificada!")
 except Exception as e:
-    print(f"No se pudo verificar la estructura automáticamente: {e}")
-# -----------------------------------------------------------
+    print(f"No se pudo verificar la estructura automáticamente: {e}"
 # -----------------------------------------------------------
 
 
