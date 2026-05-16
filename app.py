@@ -57,11 +57,18 @@ def saludo():
             cur.close()
             conn.close()
             
-            # Aquí llamamos a la pantalla de éxito con CSS y le pasamos las variables
             return render_template('exito.html', nombre=nombre, correo=correo)
             
+        except psycopg2.errors.UniqueViolation:
+            # Si PostgreSQL dice que el correo ya existe, capturamos el error aquí de forma elegante
+            if 'conn' in locals() and conn:
+                conn.rollback() # Limpiamos la conexión cancelando el intento
+                cur.close()
+                conn.close()
+            return render_template('saludo.html', error="Este correo electrónico ya se encuentra registrado.")
+            
         except Exception as e:
-            return f"Hubo un error al guardar: {e}"
+            return f"Hubo un error inesperado al guardar: {e}"
 
     return render_template('saludo.html')
 
