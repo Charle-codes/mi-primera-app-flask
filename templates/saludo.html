@@ -9,6 +9,12 @@
 <body>
     <div class="contenedor">
         <h1>¡Bienvenido!</h1>
+        <!-- Si existe un error enviado por Python, se mostrará este recuadro rojo -->
+{% if error %}
+<div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; border: 1px solid #f5c6cb;">
+    {{ error }}
+</div>
+{% endif %}
         <form action="/" method="POST">
             <input type="text" name="nombre" placeholder="Tu nombre" required>
             <input type="email" name="correo" placeholder="Tu correo electrónico" required>
