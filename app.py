@@ -2,6 +2,22 @@ from flask import Flask, render_template, request
 import os
 import psycopg2
 
+@app.route('/usuarios')
+def ver_usuarios():
+    try:
+        conn = conectar_db()
+        cur = conn.cursor()
+        # Le pedimos a la base de datos todos los registros
+        cur.execute("SELECT id, nombre, correo FROM usuarios ORDER BY id DESC;")
+        lista_usuarios = cur.fetchall() # Guarda los resultados en una lista
+        cur.close()
+        conn.close()
+        
+        # Le pasamos la lista a un nuevo archivo HTML
+        return render_template('lista.html', usuarios=lista_usuarios)
+    except Exception as e:
+        return f"Error al consultar la base de datos: {e}"
+
 app = Flask(__name__)
 
 def conectar_db():
