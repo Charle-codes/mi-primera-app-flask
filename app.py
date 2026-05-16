@@ -60,11 +60,14 @@ def saludo():
             return render_template('exito.html', nombre=nombre, correo=correo)
             
         except psycopg2.errors.UniqueViolation:
-            # Si PostgreSQL dice que el correo ya existe, capturamos el error aquí de forma elegante
+            # Capturamos el error de duplicado de forma ultra segura
             if 'conn' in locals() and conn:
-                conn.rollback() # Limpiamos la conexión cancelando el intento
+                conn.rollback()
+            if 'cur' in locals() and cur:
                 cur.close()
+            if 'conn' in locals() and conn:
                 conn.close()
+            
             return render_template('saludo.html', error="Este correo electrónico ya se encuentra registrado.")
             
         except Exception as e:
