@@ -10,23 +10,33 @@ def conectar_db():
     url = os.environ.get('DB_URL')
     return psycopg2.connect(url)
 
-# 3. --- TRUCO AUTOMÁTICO: Este bloque creará la tabla por ti ---
+# --- TRUCO AUTOMÁTICO: Este bloque creará o modificará la tabla ---
 try:
     conn = conectar_db()
     cur = conn.cursor()
+    
+    # 1. Creamos la tabla con UNIQUE por si acaso no existiera
     cur.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id SERIAL PRIMARY KEY,
             nombre VARCHAR(100) NOT NULL,
-            correo VARCHAR(100) NOT NULL
+            correo VARCHAR(100) NOT NULL UNIQUE
         );
     """)
+    
+    # 2. Por si la tabla ya existía de antes sin la regla, forzamos a que se agregue la restricción UNIQUE
+    # Usamos un bloque "try/except" interno para que no falle si ya está aplicada
+    try:
+        cur.execute("ALTER TABLE usuarios ADD CONSTRAINT correo_unico UNIQUE (correo);")
+    except Exception:
+        pass # Si ya existía el cambio, no pasa nada e ignora el error
+        
     conn.commit()
     cur.close()
     conn.close()
-    print("¡Tabla 'usuarios' verificada o creada con éxito!")
+    print("¡Restricción de correo único verificada con éxito!")
 except Exception as e:
-    print(f"No se pudo crear la tabla automáticamente: {e}")
+    print(f"No se pudo verificar la estructura automáticamente: " + str(e))
 # -----------------------------------------------------------
 
 
