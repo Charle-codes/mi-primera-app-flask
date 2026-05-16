@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+    <div class="contenedor" style="max-width: 600px;">
+        <h1>Usuarios Registrados</h1>
+        
+        <table border="1" style="width:100%; border-collapse: collapse; margin-top: 20px; background: white; color: #333;">
+            <thead>
+                <tr style="background-color: #34495e; color: white;">
+                    <th style="padding: 10px;">ID</th>
+                    <th style="padding: 10px;">Nombre</th>
+                    <th style="padding: 10px;">Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td style="padding: 10px; text-align: center;">{{ usuario[0] }}</td>
+                    <td style="padding: 10px;">{{ usuario[1] }}</td>
+                    <td style="padding: 10px;">{{ usuario[2] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <br>
+        <a href="/" style="color: #34495e; text-decoration: none; font-weight: bold;">← Volver al Formulario</a>
+    </div>
+</body>
+</html>
